@@ -32,7 +32,7 @@ nodes = []
 
 # 构建一个树
 def buildTree(dataset, node_id):
-    if get_ent(dataset) != 0:
+    if get_ent(dataset) > 0.3:
         fenlei, fenleizhi = get_fenleidian(dataset)
         trnode = treenode(fenlei, fenleizhi, -1, node_id)
         trnode.popfenlei(fenlei)
@@ -194,6 +194,7 @@ def get_fenleidian(dataset):
     return [max_i, divide_node[max_i]]
 
 
+# 按照树节点的编号找到节点在数组中的位置
 def find_(node_id):
     for node in range(len(nodes)):
         if nodes[node].node_id == node_id:
@@ -283,13 +284,4 @@ if __name__=="__main__":
     #a = classify(testSet)
     #print("验证得知，正确率为{}%".format(a*100))
     aaaaa = FiveFordCV(dataset, 150, 5)
-    print("经五折交叉验证后得知，正确率为{}%".format(aaaaa*100))
-
-
-
-
-
-
-
-
-
+    print("经预剪枝五折交叉验证后得知，正确率为{}%".format(aaaaa*100))
